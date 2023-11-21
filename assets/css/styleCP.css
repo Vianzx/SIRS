@@ -1,0 +1,11 @@
+.sepan{
+    position: absolute;
+    margin-left: 60%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+.inp {
+  width: 70%;
+}
