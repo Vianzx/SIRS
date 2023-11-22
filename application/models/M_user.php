@@ -24,21 +24,52 @@ class M_user extends CI_Model
                 ;
         return $this->db->query($query)->result_array();
     }
+    
+    public function getPengajaran()
+    {
+        $query = "SELECT `pengajaran`.*, `kelas`.`nama_kelas`, `mapel`.`nama_mapel`, `guru`.*
+                  FROM `pengajaran`
+                  JOIN `kelas`
+                  ON `pengajaran`.`kelas_id` = `kelas`.`id`
+                  JOIN `mapel`
+                  ON `pengajaran`.`mapel_id` = `mapel`.`id`
+                  JOIN `guru`
+                  ON `pengajaran`.`guru_id` = `guru`.`id`
+                  ORDER BY `username` ASC"
+                ;
+        return $this->db->query($query)->result_array();
+    }
 
-//     public function getPengajuan()
-//     {
-//         $query = "SELECT `tb_pengajuan`.*, `tb_siswa`.*, `tb_kelas`.`nama_kelas`,`tb_jurusan`.`nama_panjang`
-//                   FROM `tb_pengajuan`
-//                   JOIN `tb_siswa`
-//                   ON `tb_pengajuan`.`id_siswa` = `tb_siswa`.`id`
-//                   JOIN `tb_kelas`
-//                   ON `tb_pengajuan`.`id_kelas` = `tb_kelas`.`id`
-//                   JOIN `tb_siswa`
-//                   ON `tb_pengajuan`.`id_jurusan` = `tb_jurusan`.`id`
-//                   ORDER BY `nis` ASC"
-//                 ;
-//         return $this->db->query($query)->result_array();
-//     }
+    public function getPengajuan()
+    {  
+        $query = "SELECT `pengajuan`.*, `siswa`.*, `mapel`.`nama_mapel`
+                  FROM `pengajuan`
+                  JOIN `siswa`
+                  ON `pengajuan`.`siswa_id` = `siswa`.`id`
+                  JOIN `pengajaran`
+                  ON `pengajuan`.`pengajaran_id` = `pengajaran`.`id`
+                  JOIN `mapel`
+                  ON `pengajaran`.`mapel_id` = `mapel`.`id`
+                  ORDER BY `nama_mapel` ASC";
+        $data = $this->db->query($query)->result_array();
+        return $data;
+    }
+
+    public function getPermintaan($user)
+    {  
+        $query = "SELECT `pengajuan`.*, `siswa`.*, kelas.nama_kelas
+                  FROM `pengajuan`
+                  JOIN `siswa`
+                  ON `pengajuan`.`siswa_id` = `siswa`.`id`
+                  JOIN `pengajaran`
+                  ON `pengajuan`.`pengajaran_id` = `pengajaran`.`id`
+                  JOIN `kelas`
+                  ON siswa.kelas_id = kelas.id
+                  ORDER BY `name` ASC"
+                ;
+        $data = $this->db->query($query)->result_array();
+        return $data;
+    }
 
 //     public function getTempatSiswa()
 //     {

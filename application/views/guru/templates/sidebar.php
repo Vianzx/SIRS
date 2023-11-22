@@ -27,9 +27,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('guru/'); ?>">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Pengajuan Remedial</span></a>
+                <a class="nav-link pb-0" href="<?= base_url('guru/permintaan'); ?>">
+                    <i class="fas fa-fw fa-envelope-open"></i>
+                    <span>Permintaan Remedial</span></a>
             </li>
 
             <li class="nav-item">

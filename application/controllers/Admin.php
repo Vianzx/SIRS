@@ -60,6 +60,57 @@ class Admin extends CI_Controller
         redirect('admin/kelas');
     }
 
+    public function pengajaran()
+    {
+        $data['title'] = 'Pengajaran';
+        $data['user'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['pengajaran'] = $this->M_user->getPengajaran();
+        $data['kelas'] = $this->db->get('kelas')->result_array();
+        $data['mapel'] = $this->db->get('mapel')->result_array();
+        $data['guru'] = $this->db->get('guru')->result_array();
+
+        $this->form_validation->set_rules('guru_id', 'Nama Guru', 'required|trim');
+        $this->form_validation->set_rules('kelas_id', 'Nama Kelas', 'required|trim');
+        $this->form_validation->set_rules('mapel_id', 'Nama Mapel', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/templates/user_header', $data);
+            $this->load->view('admin/templates/sidebar', $data);
+            $this->load->view('admin/templates/topbar', $data);
+            $this->load->view('admin/pengajaran', $data);
+            $this->load->view('admin/templates/user_footer');
+        } else {
+            $input = $this->input->post();
+
+            $this->db->insert('pengajaran', $input);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            New pengajaran added!</div>');
+            redirect('admin/pengajaran');
+        }
+    }
+
+    public function editPengajaran($id)
+    {
+        $data = [
+            'guru_id' => $this->input->post('guru_id'),
+            'kelas_id' => $this->input->post('kelas_id'),
+            'mapel_id' => $this->input->post('mapel_id'),
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajaran', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajaran has been Changed!</div>'); 
+        redirect('admin/pengajaran');
+    }
+
+    public function deletePengajaran($id)
+    {
+        $this->db->delete('pengajaran', ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pengajaran has been Deleted!</div>');
+        redirect('admin/pengajaran');
+    }
+
     public function mapel()
     {
         $data['title'] = 'Mata Pelajaran';

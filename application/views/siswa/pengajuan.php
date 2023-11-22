@@ -20,7 +20,7 @@
             <?php endif; ?>
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" data-toggle="modal" data-target="#newGuruModal" class="d-none d-sm-inline-block btn btn-success shadow-sm mb-3"><i class="fas fa-fw fa-plus"></i> Add Data Guru</a>
+            <a href="" data-toggle="modal" data-target="#newPengajuanModal" class="d-none d-sm-inline-block btn btn-success shadow-sm mb-3"><i class="fas fa-paper-plane"></i> Ajukan</a>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
@@ -31,29 +31,27 @@
                             <thead align="center">
                                 <tr>
                                     <th>No</th>
-                                    <th>Username</th>
-                                    <th>Nama</th>
                                     <th>Mata Pelajaran</th>
-                                    <th>Foto</th>
-                                    <th>Action</th>
+                                    <th>NP</th>
+                                    <th>NK</th>
+                                    <th>Keterangan</th>
+                                    <th>status</th>
                                 </tr>
                             </thead>
 
                             <tbody align="center">
                                 <?php $no = 1; ?>
-                                <?php foreach ($guru as $u) : ?>
+                                <?php foreach ($pengajuan as $p) : ?>
+                                    <?php if ($p['siswa_id'] == $user['id']) : ?>
                                     <tr>
                                         <th scope="row"><?= $no; ?></th>
-                                        <td><?= $u['username']; ?></td>
-                                        <td class="text-left"><?= $u['name']; ?></td>
-                                        <td class="text-left"><?= $u['nama_mapel']; ?></td>
-                                        <td><img src="<?= base_url($u['image']) ; ?>" alt="" width="100px"></td>
-                                        <td width="100px">
-                                        <input type="hidden" data="" name="id" id="id" value="<?= $u['id'] ?>">
-                                            <a href="" data-toggle="modal" data-target="#changeGuruModal<?= $u['id'] ?>" class="btn btn-warning lg-1"><i class="far fa-fw fa-edit"></i></a>
-                                            <a href="<?= base_url(); ?>admin/deleteGuru/<?= $u['id']; ?>" onclick="return confirm('Yakin hapus data <?= $u['name']; ?>?');" class="btn btn-danger"><i class="far fa-fw fa-trash-alt"></i></a>
-                                        </td>   
+                                        <td><?= $p['nama_mapel']; ?></td>
+                                        <td class="text-left"><?= $p['np']; ?></td>
+                                        <td class="text-left"><?= $p['nk']; ?></td>
+                                        <td class="text-left"><?= $p['keterangan']; ?></td>
+                                        <td class="text-center" style="font-size: 20px;"><span class="badge badge-secondary"><?= $p['status']; ?></span></td>
                                     </tr>
+                                    <?php endif; ?>
                                     <?php $no++; ?>
                                 <?php endforeach; ?>
                             </tbody>
@@ -73,44 +71,36 @@
 
 <!-- Modal -->
 
-<div class="modal fade" id="newGuruModal" tabindex="-1" aria-labelledby="newGuruModalLabel" aria-hidden="true">
+<div class="modal fade" id="newPengajuanModal" tabindex="-1" aria-labelledby="newPengajuanModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newGuruModalLabel">Add New Guru</h5>
+                <h5 class="modal-title" id="newPengajuanModalLabel">Add Pengajuan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/daftarGuru'); ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('siswa/pengajuan')?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" required>
+                    
+                <div class="form-group">
+                        <input type="hidden" class="form-control" id="siswa_id" name="siswa_id" value="<?= $user['id']; ?>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <select name="mapel_id" id="kelas" class="form-control">
+                        <select name="pengajaran_id" id="mapel" class="form-control">
                             <?php foreach ($mapel as $m) : ?>
                             <option value="<?= $m['id']; ?>"><?= $m['nama_mapel']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="password" name="password" minlength="4" placeholder="Password"required>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="custom-file form-group">
-                                <input type="file" class="custom-file-input" id="image" name="userfile" placeholder="foto">
-                                <label class="custom-file-label" for="image"></label>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="np" name="np" placeholder="Nilai Pengetahuan" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nk" name="nk" placeholder="Nilai Keterampilan" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="keterangan" id="" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -121,60 +111,3 @@
         </div>
     </div>
 </div>
-
-<?php $no = 1; ?>
-<?php foreach ($guru as $u) : $no++; ?>
-    <div class="modal fade" id="changeGuruModal<?= $u['id'] ?>" tabindex="-1" aria-labelledby="changeGuruModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="changeGuruModalLabel">Change Guru</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="<?= base_url('admin/editGuru/' . $u['id']); ?>" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $u['id']; ?>">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="username" name="username" value="<?= $u['username'];?>" disabled>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="nama" name="name" value="<?= $u['name'];?>" required>
-                        </div>
-
-                            <div class="form-group">
-                            <select name="mapel_id" id="mapel_id" class="form-control">
-                            <?php foreach ($mapel as $m) : ?>
-                                <?php if($u['mapel_id'] == $m['id']) : ?>
-                                    <option value="<?= $m['id']; ?>" selected><?= $m['nama_mapel']; ?></option>
-                                <?php else:?>
-                                    <option value="<?= $m['id']; ?>"><?= $m['nama_mapel']; ?></option>
-                                <?php endif;?>
-                            <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <img src="<?= base_url($u['image']) ; ?>" class="img-thumbnail">
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="image" name="userfile" placeholder="Ganti foto">
-                                    <input type="hidden" name="before_path" value="<?php echo $u['image'] ?>">
-                                    <label class="custom-file-label" for="image"></label>
-                                    <p class="small ml-2">Biarkan jika tidak diubah</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>

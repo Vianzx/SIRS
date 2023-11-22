@@ -8,6 +8,7 @@ class Guru extends CI_Controller
         parent::__construct();
         error_reporting(0);
         is_logged_in();
+        $this->load->model('M_user');
     }
 
     public function index()
@@ -21,4 +22,18 @@ class Guru extends CI_Controller
         $this->load->view('guru/index', $data);
         $this->load->view('guru/templates/user_footer');
     }
+
+    public function permintaan()
+    {
+        $data['title'] = "Permintaan Remedial";
+        $data['user'] = $this->db->get_where('guru', ['username' => $this->session->userdata('username')])->row_array(); 
+
+        $data['permintaan'] = $this->M_user->getPermintaan($data['user']);
+
+            $this->load->view('guru/templates/user_header', $data);
+            $this->load->view('guru/templates/sidebar', $data);
+            $this->load->view('guru/templates/topbar', $data);
+            $this->load->view('guru/permintaan', $data);
+            $this->load->view('guru/templates/user_footer');
+         }
 }
