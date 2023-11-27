@@ -53,6 +53,7 @@
                                     </tr>
                                     <?php endif; ?>
                                     <?php $no++; ?>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
