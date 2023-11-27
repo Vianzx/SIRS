@@ -27,45 +27,31 @@ class Siswa extends CI_Controller
     {
         $data['title'] = "Ajukan Remedial";
         $data['user'] = $this->db->get_where('siswa', ['username' => $this->session->userdata('username')])->row_array();
+        $kelas = $data['user']['kelas_id'];
 
-        $data['pengajuan'] = $this->db->get('pengajuan')->result_array();
-        $data['mapel'] = $this->db->get('mapel')->result_array();
-        $data['remedial'] = $this->db->get('remedial')->result_array();
+        $data['pengajuan'] = $this->M_user->getPengajuan();
 
-        $this->form_validation->set_rules('nama_mapel', 'Mapel', 'required');
-        $this->form_validation->set_rules('pekerjaan', 'Pekerjaan Yang Dilakukan', 'required');
-        $this->form_validation->set_rules('kompetensi', 'Kompetensi Yang Didapat', 'required');
+        $query = "SELECT pengajaran.id, mapel.* from pengajaran join mapel on pengajaran.mapel_id = mapel.id where kelas_id LIKE '$kelas'";
+
+        $data['mapel'] = $this->db->query($query)->result_array();
+        $data['murid'] = $this->db->get('siswa')->result_array();
+
+        $this->form_validation->set_rules('np', 'Nilai Pengetahuan', 'required');
+        $this->form_validation->set_rules('nk', 'Nilai Keterampilan', 'required');
 
          if($this->form_validation->run() == false) {
             $this->load->view('siswa/templates/user_header', $data);
             $this->load->view('siswa/templates/sidebar', $data);
             $this->load->view('siswa/templates/topbar', $data);
-            $this->load->view('siswa/jurnal', $data);
+            $this->load->view('siswa/pengajuan', $data);
             $this->load->view('siswa/templates/user_footer');
         } else {
             $input = $this->input->post();
 
-            $this->db->insert('', $input);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New data added!</div>');
-            redirect('siswa/jurnal');
+            $this->db->insert('pengajuan', $input);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan added!</div>');
+            redirect('siswa/pengajuan');
         }
-    }
-
-    public function deletePengajuan($id)
-    {
-        $this->db->delete('tb_jurnal', ['id' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Kegiatan has been Deleted!</div>');
-        redirect('siswa/jurnal');
-    }
-
-    public function editPengajuan($id)
-    {
-        $input = $this->input->post();
-
-        $this->db->where('id', $id);
-        $this->db->update('tb_jurnal', $input);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Kegiatan has been Changed!</div>');
-        redirect('siswa/jurnal');
     }
 
     // public function profile()

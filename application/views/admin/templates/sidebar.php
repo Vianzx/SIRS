@@ -41,6 +41,7 @@
                         <a class="collapse-item" href="<?= base_url('admin/kelas'); ?>">Kelas</a>
                         <a class="collapse-item" href="<?= base_url('admin/daftarGuru'); ?>">Guru</a>
                         <a class="collapse-item" href="<?= base_url('admin/mapel'); ?>">Mapel</a>
+                        <a class="collapse-item" href="<?= base_url('admin/pengajaran'); ?>">Pengajaran</a>
                     </div>
                 </div>
             </li>
