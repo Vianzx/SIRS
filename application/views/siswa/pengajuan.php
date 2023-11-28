@@ -51,7 +51,6 @@
                                         <td class="text-left"><?= $p['keterangan']; ?></td>
                                         <td class="text-center" style="font-size: 20px;"><span class="badge badge-secondary"><?= $p['status']; ?></span></td>
                                     </tr>
-                                    <?php endif; ?>
                                     <?php $no++; ?>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
