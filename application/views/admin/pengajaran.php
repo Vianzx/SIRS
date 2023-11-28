@@ -33,7 +33,8 @@
                 <?php endforeach; ?>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade" id="kelas" role="tabpanel" aria-labelledby="kelas-tab">
+                <?php foreach($kelas as $k) : ?>
+                <div class="tab-pane fade in active" id="kelas<?= $k['id'] ?>" role="tabpanel" aria-labelledby="kelas-tab">
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -73,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+                <?php endforeach; ?>
             </div>
             
         </div>
