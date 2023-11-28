@@ -24,15 +24,16 @@
 
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <?php $n = 1 ?>
                 <?php foreach ($kelas as $k) : ?>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="kelas-tab" data-toggle="tab" data-target="#kelas" type="button" role="tab" aria-controls="home" aria-selected="true"><?= $k['nama_kelas']; ?></button>
+                    <button class="nav-link <?= ($n==1) ? 'active' : "" ;?>" id="kelas-tab" data-toggle="tab" data-target="#kelas<?= $k['id'] ?>" type="button" role="tab" aria-controls="home" aria-selected="true"><?= $k['nama_kelas']; ?></button>
                 </li>
+                <?php $n = 0 ?>
                 <?php endforeach; ?>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade" id="kelas" role="tabpanel" aria-labelledby="kelas-tab">
-                    <?php if($kelas['nama_kelas'] == $kelas['nama_kelas']) : ?>
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -51,6 +52,7 @@
                                     <tbody align="center">
                                         <?php $no = 1; ?>
                                         <?php foreach ($pengajaran as $pj) : ?>
+                                            <?php if ($pj['kelas_id'] == $k['id']) : ?>
                                             <tr>
                                                 <th scope="row"><?= $no; ?></th>
                                                 <td><?= $pj['name']; ?></td>
@@ -63,13 +65,13 @@
                                                 </td>   
                                             </tr>
                                             <?php $no++; ?>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <?php endif; ?>
                 </div>
             </div>
             
