@@ -32,7 +32,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade" id="kelas" role="tabpanel" aria-labelledby="kelas-tab">
-                    <?php if($kelas['id'] == ) : ?>
+                    <?php if($kelas['nama_kelas'] == $kelas['nama_kelas']) : ?>
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
