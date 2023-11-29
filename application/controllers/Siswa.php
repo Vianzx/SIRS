@@ -31,7 +31,7 @@ class Siswa extends CI_Controller
 
         $data['pengajuan'] = $this->M_user->getPengajuan();
 
-        $query = "SELECT pengajaran.id, mapel.* from pengajaran join mapel on pengajaran.mapel_id = mapel.id where kelas_id LIKE '$kelas'";
+        $query = "SELECT pengajaran.id as id_pengajaran, mapel.* from pengajaran join mapel on pengajaran.mapel_id = mapel.id where kelas_id LIKE '$kelas'";
 
         $data['mapel'] = $this->db->query($query)->result_array();
         $data['murid'] = $this->db->get('siswa')->result_array();

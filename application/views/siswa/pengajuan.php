@@ -89,7 +89,7 @@
                     <div class="form-group">
                         <select name="pengajaran_id" id="mapel" class="form-control">
                             <?php foreach ($mapel as $m) : ?>
-                            <option value="<?= $m['id']; ?>"><?= $m['nama_mapel']; ?></option>
+                            <option value="<?= $m['id_pengajaran']; ?>"><?= $m['nama_mapel']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
