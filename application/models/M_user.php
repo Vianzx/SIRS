@@ -55,9 +55,9 @@ class M_user extends CI_Model
         return $data;
     }
 
-    public function getPermintaan($user)
+    public function getPermintaan()
     {  
-        $query = "SELECT `pengajuan`.*, `siswa`.*, kelas.nama_kelas
+        $query = "SELECT pengajuan.id as id_pengajuan,`pengajuan`.*, `siswa`.*, kelas.nama_kelas, `pengajaran`.*
                   FROM `pengajuan`
                   JOIN `siswa`
                   ON `pengajuan`.`siswa_id` = `siswa`.`id`
@@ -71,14 +71,29 @@ class M_user extends CI_Model
         return $data;
     }
 
-//     public function getTempatSiswa()
-//     {
-//         $query = "SELECT `tb_tempat_siswa`.*, `tb_siswa`.*
-//                   FROM `tb_tempat_siswa`
-//                   JOIN `tb_siswa`
-//                   ON `tb_tempat_siswa`.`id_siswa` = `tb_siswa`.`id`
-//                   ORDER BY `nis` ASC"
-//                 ;
-//         return $this->db->query($query)->result_array();
-//     }
+    public function waiting()
+    {
+        $query = "SELECT `pengajuan`.*, `kelas`.`nama_kelas`, `siswa`.*
+                  FROM `pengajuan`
+                  JOIN `siswa`
+                  ON `pengajuan`.`siswa_id` = `siswa`.`id`
+                  JOIN `kelas`
+                  ON `siswa`.`kelas_id` = `kelas`.`id`
+                  ORDER BY `siswa_id` ASC"
+                ;
+        return $this->db->query($query)->result_array();
+    }
+
+    public function proses()
+    {
+        $query = "SELECT `laporan`.*, `siswa`.*, `kelas`.`nama_kelas`
+                  FROM `laporan`
+                  JOIN `siswa`
+                  ON `laporan`.`siswa_id` = `siswa`.`id`
+                  JOIN `kelas`
+                  ON `siswa`.`kelas_id` = `kelas`.`id`
+                  ORDER BY `siswa_id` ASC"
+                ;
+        return $this->db->query($query)->result_array();
+    }
 }

@@ -53,6 +53,28 @@ class Siswa extends CI_Controller
             redirect('siswa/pengajuan');
         }
     }
+    
+    public function updateNilai()
+    {
+        $data['title'] = "Update Nilai";
+        $data['user'] = $this->db->get_where('siswa', ['username' => $this->session->userdata('username')])->row_array();
+        $id = $data['user']['id'];
+
+        $query = "SELECT laporan.*, mapel.*, siswa.id, pengajuan.* 
+                  from laporan 
+                  JOIN siswa ON laporan.siswa_id = siswa.id
+                  JOIN pengajuan ON laporan.pengajuan_id = pengajuan.id
+                  JOIN pengajaran ON pengajuan.pengajaran_id = pengajaran.id
+                  JOIN mapel ON pengajaran.mapel_id = mapel.id where siswa.id LIKE '$id'";
+
+        $data['nilaiUpdate'] = $this->db->query($query)->result_array();
+
+        $this->load->view('siswa/templates/user_header', $data);
+        $this->load->view('siswa/templates/sidebar', $data);
+        $this->load->view('siswa/templates/topbar', $data);
+        $this->load->view('siswa/update_nilai', $data);
+        $this->load->view('siswa/templates/user_footer');
+    }
 
     // public function profile()
     // {

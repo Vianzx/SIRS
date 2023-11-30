@@ -30,10 +30,42 @@ class Guru extends CI_Controller
 
         $data['permintaan'] = $this->M_user->getPermintaan($data['user']);
 
+        $query = "SELECT siswa.*, laporan.*, kelas.* FROM laporan 
+        JOIN siswa ON laporan.siswa_id = siswa.id
+        join kelas on siswa.kelas_id = kelas.id
+        ";
+
+        $data['laporan'] = $this->db->query($query)->result_array();
+
             $this->load->view('guru/templates/user_header', $data);
             $this->load->view('guru/templates/sidebar', $data);
             $this->load->view('guru/templates/topbar', $data);
             $this->load->view('guru/permintaan', $data);
             $this->load->view('guru/templates/user_footer');
          }
+
+    public function accept($id)
+    {
+        $this->db->update('pengajuan', ['status' => "accept" ] ,[ 'id' => $id ]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan di Accept!</div>'); 
+        redirect('guru/permintaan');
+    }
+
+    public function decline($id)
+    {
+        $this->db->update('pengajuan', ['status' => "decline" ] ,[ 'id' => $id ]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan di Decline!</div>'); 
+        redirect('guru/permintaan');
+    }
+
+    public function proses()
+    {         
+        $input = $this->input->post();
+        var_dump($input);
+
+        $this->db->insert('laporan', $input);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Nilai has been Update</div>');
+        redirect('guru/permintaan');
+        
+    }
 }

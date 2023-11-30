@@ -37,12 +37,7 @@
                     <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Jadwal Remedial</span></a>
             </li>
-            
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('guru/'); ?>">
-                    <i class="fas fa-fw fa-comments"></i>
-                    <span>Forum Chat</span></a>
-            </li><br>
+            <br>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <!-- <li class="nav-item">
