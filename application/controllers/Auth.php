@@ -226,26 +226,6 @@ class Auth extends CI_Controller
         You have been logout</div>');
         redirect('auth');
     }
-    
-    public function logoutS()
-    {
-        $this->session->unset_userdata('username');
-        $this->session->unset_userdata('role_id');
-
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        You have been logout</div>');
-        redirect('auth/loginS');
-    }
-    
-    public function logoutG()
-    {
-        $this->session->unset_userdata('username');
-        $this->session->unset_userdata('role_id');
-
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        You have been logout</div>');
-        redirect('auth/loginG');
-    }
 
     public function blocked()
     {
