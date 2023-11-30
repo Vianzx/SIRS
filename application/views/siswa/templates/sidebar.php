@@ -37,12 +37,13 @@
                     <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Jadwal Remedial</span></a>
             </li>
-            
+
             <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('siswa/forum'); ?>">
-                    <i class="fas fa-fw fa-comments"></i>
-                    <span>Forum Chat</span></a>
-            </li><br>
+                <a class="nav-link pb-0" href="<?= base_url('siswa/updateNilai'); ?>">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Update Nilai</span></a>
+            </li>
+            <br>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <!-- <li class="nav-item">

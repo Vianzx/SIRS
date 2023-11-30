@@ -42,14 +42,20 @@
                             <tbody align="center">
                                 <?php $no = 1; ?>
                                 <?php foreach ($pengajuan as $p) : ?>
-                                    <?php if ($p['siswa_id'] == $user['id']) : ?>
+                                    <?php if ($p['siswa_id'] == $user['id'] && $p['status'] != 'done') : ?>
                                     <tr>
                                         <th scope="row"><?= $no; ?></th>
                                         <td><?= $p['nama_mapel']; ?></td>
                                         <td class="text-left"><?= $p['np']; ?></td>
                                         <td class="text-left"><?= $p['nk']; ?></td>
                                         <td class="text-left"><?= $p['keterangan']; ?></td>
-                                        <td class="text-center" style="font-size: 20px;"><span class="badge badge-secondary"><?= $p['status']; ?></span></td>
+                                        <?php if($p['status'] == 'waiting') : ?>
+                                            <td class="text-center" style="font-size: 20px;"><span class="badge badge-secondary"><?= $p['status']; ?></span></td>
+                                            <?php elseif($p['status'] == 'accept') : ?>
+                                                <td class="text-center" style="font-size: 20px;"><span class="badge badge-success"><?= $p['status']; ?></span></td>
+                                            <?php elseif($p['status'] == 'decline') : ?>
+                                                <td class="text-center" style="font-size: 20px;"><span class="badge badge-danger"><?= $p['status']; ?></span></td>
+                                        <?php endif; ?>
                                     </tr>
                                     <?php $no++; ?>
                                     <?php endif; ?>
