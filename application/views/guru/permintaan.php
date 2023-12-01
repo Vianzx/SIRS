@@ -74,8 +74,8 @@
                                                 </td>
                                                 <?php endif; ?>
                                             </tr>
-                                            <?php endif; ?>
                                             <?php $no++; ?>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                         <!-- <?php var_dump($user); ?> -->
                                     </tbody>
@@ -121,8 +121,8 @@
                                                 <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newLaporanModal<?= $p['id_pengajuan']; ?>">Proses</a>
                                                 </td>
                                             </tr>
-                                            <?php endif; ?>
                                             <?php $no++; ?>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>

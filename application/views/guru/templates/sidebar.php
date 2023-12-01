@@ -33,7 +33,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('guru/'); ?>">
+                <a class="nav-link pb-0" href="<?= base_url('guru/jadwal'); ?>">
                     <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Jadwal Remedial</span></a>
             </li>

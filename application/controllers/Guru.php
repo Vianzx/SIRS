@@ -42,7 +42,34 @@ class Guru extends CI_Controller
             $this->load->view('guru/templates/topbar', $data);
             $this->load->view('guru/permintaan', $data);
             $this->load->view('guru/templates/user_footer');
-         }
+    }
+
+    public function jadwal(){
+        $data['title'] = "Jadwal Remedial";
+        $data['user'] = $this->db->get_where('guru', ['username' => $this->session->userdata('username')])->row_array(); 
+
+        $guru_id = $data['user']['id'];
+        $data['jadwal'] = $this->db->query("SELECT jadwal_remedial.*, mapel.* FROM jadwal_remedial JOIN mapel ON jadwal_remedial.mapel_id = mapel.id WHERE guru_id LIKE '%$guru_id%' and status = 'scheduled'")->result_array();
+
+        // $data['jadwal'] = "SELECT jadwal_remedial.* FROM jadwal_remedial WHERE cansee_nim LIKE '%$data[user][username]%'";   
+
+        $this->form_validation->set_rules('tanggal_remedial', 'Tanggal Remdial', 'required');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+
+        if($this->form_validation->run() == false) {
+            $this->load->view('guru/templates/user_header', $data);
+            $this->load->view('guru/templates/sidebar', $data);
+            $this->load->view('guru/templates/topbar', $data);
+            $this->load->view('guru/jadwal', $data);
+            $this->load->view('guru/templates/user_footer');
+        } else {
+            $input = $this->input->post();
+
+            $this->db->insert('jadwal_remedial', $input);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Added!</div>');
+            redirect('guru/jadwal');
+        }
+    }
 
     public function accept($id)
     {
