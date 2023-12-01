@@ -76,6 +76,34 @@ class Siswa extends CI_Controller
         $this->load->view('siswa/templates/user_footer');
     }
 
+    public function Jadwal(){
+        $data['title'] = "Jadwal Remedial";
+        $data['user'] = $this->db->get_where('siswa', ['username' => $this->session->userdata('username')])->row_array();
+
+        $username = $data['user']['username'];
+        $data['jadwal'] = $this->db->query("SELECT jadwal_remedial.*, mapel.* FROM jadwal_remedial JOIN mapel ON jadwal_remedial.mapel_id = mapel.id WHERE cansee_nim LIKE '%$username%'")->result_array();
+
+        // $data['jadwal'] = "SELECT jadwal_remedial.* FROM jadwal_remedial WHERE cansee_nim LIKE '%$data[user][username]%'";   
+
+
+        $this->form_validation->set_rules('np', 'Nilai Pengetahuan', 'required');
+        $this->form_validation->set_rules('nk', 'Nilai Keterampilan', 'required');
+
+        if($this->form_validation->run() == false) {
+            $this->load->view('siswa/templates/user_header', $data);
+            $this->load->view('siswa/templates/sidebar', $data);
+            $this->load->view('siswa/templates/topbar', $data);
+            $this->load->view('siswa/jadwal', $data);
+            $this->load->view('siswa/templates/user_footer');
+        } else {
+            $input = $this->input->post();
+
+            $this->db->insert('pengajuan', $input);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan added!</div>');
+            redirect('siswa/pengajuan');
+        }
+    }
+
     // public function profile()
     // {
     //     $data['title'] = 'My Profile';
