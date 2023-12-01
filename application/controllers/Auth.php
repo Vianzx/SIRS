@@ -57,6 +57,10 @@ class Auth extends CI_Controller
                     Wrong password!</div>');
                     redirect('auth');
                 }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            Account NULL!</div>');
+            redirect('auth');
         }
     }
 
@@ -103,6 +107,11 @@ class Auth extends CI_Controller
                 Wrong password!</div>');
                 redirect('auth/loginS');
             }
+        
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            Account NULL!</div>');
+            redirect('auth/loginS');
         }
     }
     
@@ -149,6 +158,11 @@ class Auth extends CI_Controller
                 Wrong password!</div>');
                 redirect('auth/loginG');
             }
+        
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            Account NULL!</div>');
+            redirect('auth/loginG');
         }
     }
 
