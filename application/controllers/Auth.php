@@ -59,7 +59,7 @@ class Auth extends CI_Controller
                 }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Account NULL!</div>');
+            Account Not Found!</div>');
             redirect('auth');
         }
     }
@@ -110,7 +110,7 @@ class Auth extends CI_Controller
         
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Account NULL!</div>');
+            Account Not Found!</div>');
             redirect('auth/loginS');
         }
     }
@@ -161,7 +161,7 @@ class Auth extends CI_Controller
         
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Account NULL!</div>');
+            Account Not Found!</div>');
             redirect('auth/loginG');
         }
     }
