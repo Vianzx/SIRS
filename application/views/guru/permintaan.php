@@ -153,14 +153,16 @@
                                     <tbody align="center">
                                         <?php $no = 1; ?>
                                         <?php foreach ($laporan as $l) : ?>
+                                            <?php if($l['guru_id'] == $user['id']) : ?>
                                             <tr>
                                                 <th scope="row"><?= $no; ?></th>
-                                                <td><?= $l['username']; ?></td>
-                                                <td><?= $l['name']; ?></td>
+                                                <td><?= $l['username_siswa']; ?></td>
+                                                <td><?= $l['name_siswa']; ?></td>
                                                 <td class="text-left"><?= $l['nama_kelas']; ?></td>
                                                 <td class="text-center"><?= $l['update_nilai_P']; ?></td>
                                                 <td class="text-center"><?= $l['update_nilai_K']; ?></td>
                                             </tr>
+                                            <?php endif; ?>
                                             <?php $no++; ?>
                                         <?php endforeach; ?>
                                     </tbody>

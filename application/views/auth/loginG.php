@@ -4,6 +4,15 @@
     }
 ?>
 
+<div class="container-fluid text-center pt-2" style="background-color: firebrick; color:white; padding-bottom: 10px;">
+    <table>
+        <tr>
+            <td style="padding-left:430px; padding-bottom: 80px;"><img src="<?= base_url('assets/img/logo/SMKN-1-Cirebon.png'); ?>" width="80px" alt=""></td>
+            <td><h4 class="ml-2" style="padding-bottom: 70px;">SMK NEGERI 1 CIREBON</h4></td>
+        </tr>
+    </table>
+</div>
+
 <div class="container">
     
     <!-- Outer Row -->

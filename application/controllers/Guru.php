@@ -30,9 +30,12 @@ class Guru extends CI_Controller
 
         $data['permintaan'] = $this->M_user->getPermintaan($data['user']);
 
-        $query = "SELECT siswa.*, laporan.*, kelas.* FROM laporan 
+        $query = "SELECT siswa.*, siswa.username as username_siswa, siswa.name as name_siswa, laporan.*, kelas.*, guru.*, pengajuan.*, pengajaran.* FROM laporan 
         JOIN siswa ON laporan.siswa_id = siswa.id
-        join kelas on siswa.kelas_id = kelas.id
+        JOIN kelas ON siswa.kelas_id = kelas.id
+        JOIN pengajuan ON laporan.pengajuan_id = pengajuan.id
+        JOIN pengajaran ON pengajuan.pengajaran_id = pengajaran.id
+        JOIN guru ON pengajaran.guru_id = guru.id
         ";
 
         $data['laporan'] = $this->db->query($query)->result_array();
